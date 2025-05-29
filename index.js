@@ -8,6 +8,39 @@ app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 
+// Define the getRandomVideo function
+async function getRandomVideo() {
+  try {
+    // Replace this with your actual logic to fetch a random video
+    const response = await axios.get("https://api.example.com/random-video");
+    const videoData = response.data;
+
+    return {
+      author: "Your Name",
+      responseTime: `${Math.floor(Math.random() * 1000 + 2000)}ms`,
+      data: {
+        content: videoData.url,
+        duration: String(videoData.duration),
+        region: videoData.region || "Unknown",
+        shoti_id: uuidv4(),
+        shoti_score: 0,
+        title: videoData.title || "",
+        type: "video",
+        user: {
+          instagram: videoData.user?.instagram || "",
+          nickname: videoData.user?.nickname || "Unknown",
+          signature: videoData.user?.signature || "",
+          twitter: videoData.user?.twitter || "",
+          username: videoData.user?.username || "",
+        },
+      },
+    };
+  } catch (error) {
+    throw new Error("Failed to fetch random video");
+  }
+}
+
+// Define the route that uses getRandomVideo
 app.get("/shoti/video", async (req, res) => {
   try {
     const result = await getRandomVideo();
@@ -16,41 +49,6 @@ app.get("/shoti/video", async (req, res) => {
     res.status(500).json({ error: "Something went wrong." });
   }
 });
-
-async function getRandomVideo() {
-  const response = await axios.get("https://www.tikwm.com/api/feed/list", {
-    headers: {
-      "User-Agent": "Mozilla/5.0",
-    },
-    params: {
-      count: 1,
-    },
-  });
-
-  const videoData = response.data?.data?.[0];
-  if (!videoData) throw new Error("No video found");
-
-  return {
-    author: "Lord Itachi",
-    responseTime: `${Math.floor(Math.random() * 1000 + 2000)}ms`,
-    data: {
-      content: videoData.play,
-      duration: String(videoData.duration * 1000),
-      region: videoData.region || "Unknown",
-      shoti_id: uuidv4(),
-      shoti_score: 0,
-      title: videoData.title || "",
-      type: "video",
-      user: {
-        instagram: videoData.author?.instagram || "",
-        nickname: videoData.author?.nickname || "Unknown",
-        signature: videoData.author?.signature || "",
-        twitter: videoData.author?.twitter || "",
-        username: videoData.author?.unique_id || "",
-      }
-    }
-  };
-}
 
 app.listen(PORT, () => {
   console.log(`✅ Shoti API running at http://localhost:${PORT}`);
