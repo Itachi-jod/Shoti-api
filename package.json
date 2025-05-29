@@ -1,0 +1,20 @@
+{
+  "author": "Lord Itachi",
+  "responseTime": "123.45ms",
+  "data": {
+    "content": "https://api.tiktokv.com/aweme/v1/play/?file_id=...",
+    "duration": "8321",
+    "region": "ID",
+    "shoti_id": "uuid",
+    "shoti_score": 0,
+    "title": "",
+    "type": "video",
+    "user": {
+      "instagram": "dewiiwhyn",
+      "nickname": "lizyyfizyy",
+      "signature": "",
+      "twitter": "",
+      "username": "lizyyfizyy"
+    }
+  }
+}
