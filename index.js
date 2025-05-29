@@ -16,7 +16,7 @@ async function getRandomVideo() {
     const videoData = response.data;
 
     return {
-      author: "Your Name",
+      author: "Lord Itachi",
       responseTime: `${Math.floor(Math.random() * 1000 + 2000)}ms`,
       data: {
         content: videoData.url,
